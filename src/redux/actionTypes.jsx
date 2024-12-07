@@ -1,0 +1,13 @@
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const REGISTRATION = "REGISTRATION";
+export const DELETE_NOTE = "DELETE_NOTE";
+export const ADD_NOTE = "ADD_NOTE";
+export const EDIT_NOTE = "EDIT_NOTE";
+export const ERROR_PAGE_LOADED = "ERROR_PAGE_LOADED";
+export const HOME_PAGE_LOADED = "HOME_PAGE_LOADED";
+export const HOME_PAGE_UNLOADED = "HOME_PAGE_UNLOADED";
+export const SET_NOTES = "SET_NOTES";
+export const APP_LOADED = "APP_LOADED";
+export const SET_ERROR = "SET_ERROR";
+export const CLEAR_ERROR = "CLEAR_ERROR";
