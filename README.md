@@ -107,3 +107,6 @@ Feel free to contribute and share your feedback! Together, let’s make note-tak
 
 > ⭐ **Start writing, stay organized, and achieve more!**
 
+---
+
+If you have any other specifics you'd like to add or modify, feel free to let me know! 😊
