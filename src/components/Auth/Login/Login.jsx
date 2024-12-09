@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm/LoginForm";
 import { login } from "../../../redux/actions/accountActions";
+import { setError } from "../../../redux/actions/errorActions";
 import { useAuth } from "../../../Context";
 
 const LogIn = () => {
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login: loginContext } = useAuth();
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const LogIn = () => {
 
   const handleLogin = async (identifier, password) => {
     setLoading(true);
-    setError("");
+    dispatch(setError("")); 
 
     try {
       const queryParam = identifier.includes("@")
@@ -54,7 +54,8 @@ const LogIn = () => {
       navigate("/home");
     } catch (error) {
       console.error("Login error:", error);
-      setError(error.message || "An unexpected error occurred.");
+      dispatch(setError(error.message || "An unexpected error occurred.")); // Устанавливаем ошибку в Redux
+     
     } finally {
       setLoading(false);
     }
@@ -62,7 +63,7 @@ const LogIn = () => {
 
   return (
     <div>
-      <LoginForm onSubmit={handleLogin} loading={loading} error={error} />
+      <LoginForm onSubmit={handleLogin} loading={loading} />
     </div>
   );
 };
