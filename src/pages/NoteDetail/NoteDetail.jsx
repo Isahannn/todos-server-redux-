@@ -63,11 +63,11 @@ const NoteDetail = ({ editNote, deleteNote }) => {
       description: description.trim(),
       severity,
     };
-    console.log('Updating note:', updatedNote); // Отладочное сообщение
+
 
     try {
       const data = await updateNoteInDB(id, updatedNote);
-      console.log('Note updated:', data); // Отладочное сообщение
+
       setNote(data);
       editNote(data);
       setIsEditMode(false);
@@ -210,6 +210,8 @@ const NoteDetail = ({ editNote, deleteNote }) => {
         onConfirm={handleDelete}
         title="Delete Note"
         message="Are you sure you want to delete this note?"
+        confirmButtonText="Yes, Delete"
+        confirmButtonStyle={styles.deleteButton}
       />
 
       <Modal
@@ -218,6 +220,8 @@ const NoteDetail = ({ editNote, deleteNote }) => {
         onConfirm={handleConfirmSave}
         title="Save Changes"
         message="Are you sure you want to save these changes?"
+        confirmButtonText="Save Changes"
+        confirmButtonStyle={styles.confirmButton}
       />
     </div>
   );
