@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import debounce from 'lodash.debounce';
+import styles from './SmartSearch.module.css';
 
 const SmartSearch = ({ onSearchChange, disabled }) => {
   const [query, setQuery] = useState(() => {
@@ -27,13 +28,13 @@ const SmartSearch = ({ onSearchChange, disabled }) => {
   };
 
   return (
-    <div className="flex justify-center items-center my-4">
+    <div className={styles.container}>
       <input
         type="text"
         value={query}
         onChange={handleChange}
         placeholder="Find..."
-        className="w-full max-w-2xl px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+        className={styles.input}
         disabled={disabled}
       />
     </div>

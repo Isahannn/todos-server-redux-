@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from './DeletePopup.module.css';
 import { connect } from 'react-redux';
 import { deleteNote } from '../../../../redux/actions/notesActions';
 import { deleteNoteFromDB } from '../../../../components/service/noteService';
+import { useModal } from '../../ModalContext';
+import styles from './DeletePopup.module.css';
 
 const mapDispatchToProps = (dispatch) => ({
   onDelete: async (noteId) => {
@@ -16,13 +17,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const DeletePopup = ({ onDelete, noteId }) => {
-  const handleDelete = () => {
-    onDelete(noteId);
+  const { openModal } = useModal();
+
+  const handleDeleteClick = () => {
+    openModal(noteId);
   };
 
   return (
     <div className={styles.deletePopup}>
-      <button onClick={handleDelete} className={styles.deleteButton}>🗑</button>
+      <button onClick={handleDeleteClick} className={styles.deleteButton}>🗑</button>
     </div>
   );
 };

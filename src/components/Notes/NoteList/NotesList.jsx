@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
 import Modal from "../Modal/Modal";
 import NoteItem from "../Note/NoteItem/NoteItem";
+import { ModalProvider, useModal } from '../ModalContext';
 import styles from "./NotesList.module.css";
 
 const NotesList = ({
@@ -11,28 +12,9 @@ const NotesList = ({
   onMouseLeave,
   onEdit,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const { isModalOpen, openModal, closeModal, confirmDelete } = useModal();
 
-  useEffect(() => {}, [notes]);
-
-  const handleDeleteClick = (noteId) => {
-    setSelectedNoteId(noteId);
-    setIsModalOpen(true);
-  };
-
-  const handleConfirmDelete = () => {
-    onDelete(selectedNoteId);
-    setIsModalOpen(false);
-    setSelectedNoteId(null);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedNoteId(null);
-  };
-
-  const sortedNotes = (notes || []).sort((a, b) => a.checked - b.checked);
+  const sortedNotes = notes.sort((a, b) => a.checked - b.checked);
 
   return (
     <div>
@@ -42,7 +24,7 @@ const NotesList = ({
             key={note.id}
             note={note}
             onChecked={onChecked}
-            onDelete={handleDeleteClick}
+            onDelete={() => openModal(note.id)}
             onEdit={onEdit}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -51,11 +33,17 @@ const NotesList = ({
       </ul>
       <Modal
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        onClose={closeModal}
+        onConfirm={() => confirmDelete(onDelete)}
       />
     </div>
   );
 };
 
-export default NotesList;
+const NotesListWithProvider = (props) => (
+  <ModalProvider>
+    <NotesList {...props} />
+  </ModalProvider>
+);
+
+export default NotesListWithProvider;
