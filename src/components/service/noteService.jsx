@@ -55,6 +55,8 @@ export const updateNoteInDB = async (id, updatedNote) => {
   return await response.json();
 };
 
+
+
 export const comparePasswords = async (plainPassword, hashedPassword) => {
   return bcrypt.compareSync(plainPassword, hashedPassword);
 };
