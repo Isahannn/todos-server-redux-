@@ -61,7 +61,7 @@ const NotesPage = ({ notes, addNote, deleteNote, editNote, setNotes }) => {
     if (updatedNote) {
       const newCheckedStatus = !updatedNote.checked;
       try {
-        await updateNoteInDB({ ...updatedNote, checked: newCheckedStatus });
+        await updateNoteInDB(updatedNote.id, { ...updatedNote, checked: newCheckedStatus });
         editNote({
           ...updatedNote,
           checked: newCheckedStatus,
@@ -71,6 +71,7 @@ const NotesPage = ({ notes, addNote, deleteNote, editNote, setNotes }) => {
       }
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
@@ -121,14 +122,10 @@ const NotesPage = ({ notes, addNote, deleteNote, editNote, setNotes }) => {
   };
 
   const filteredNotes = (notes || [])
-    .filter((note) =>
-      note.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .filter(
-      (note) =>
-        filterSeverity.length === 0 || filterSeverity.includes(note.severity)
-    );
+  .filter((note) => note.name && note.name.toLowerCase().includes((searchQuery || '').toLowerCase()))
+  .filter((note) => filterSeverity.length === 0 || filterSeverity.includes(note.severity));
 
+  
   return (
     <div className={`${styles.pageContainer} ${isLoaded ? styles.loaded : ""}`}>
       <h1 className={styles.pageTitle}>Notes</h1>
